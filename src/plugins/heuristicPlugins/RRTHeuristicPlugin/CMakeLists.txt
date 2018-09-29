@@ -1,0 +1,2 @@
+include(${CMAKE_CURRENT_LIST_DIR}/RRTConnect/CMakeLists.txt)
+ADD_HEURISTIC_PLUGIN(RRTHeuristicPlugin ${CMAKE_CURRENT_LIST_DIR}/RRTHeuristicPlugin.cpp ${RRT_CONNECT_SRC})

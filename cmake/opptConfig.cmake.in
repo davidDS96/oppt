@@ -1,0 +1,25 @@
+# ...
+ # (compute PREFIX relative to file location)
+ # ...
+set(oppt_INCLUDE_DIRS @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_INCLUDEDIR@)
+set(oppt_LIBRARIES @CMAKE_INSTALL_PREFIX@/@CMAKE_INSTALL_LIBDIR@/liboppt.so)
+set(oppt_LIBRARY_DIRS @oppt_LIBRARY_DIRS@)
+
+add_definitions(-DUSE_DOUBLE_PRECISION=true)
+
+find_package(gazebo REQUIRED)
+if(NOT gazebo_FOUND)
+   message(FATAL_ERROR "Gazebo could not be found")
+endif()
+
+FIND_PATH( GAZEBO_INCLUDE_PATH "gazebo.hh"
+           PATH_SUFFIXES "gazebo-${GAZEBO_MAJOR_VERSION}/gazebo" )
+if (NOT GAZEBO_INCLUDE_PATH)
+    message(FATAL_ERROR "Gazebo header could not be found")
+endif()
+list(APPEND GAZEBO_INCLUDE_DIRS "${GAZEBO_INCLUDE_PATH}")
+
+include_directories(${GAZEBO_INCLUDE_DIRS})
+link_directories(${GAZEBO_LIBRARY_DIRS})
+
+list(APPEND oppt_LIBRARIES @OPPT_LIBS@)
